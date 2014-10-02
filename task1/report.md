@@ -33,4 +33,4 @@
 
 # 実体関連図とその説明（各実体集合および関連集合の説明）
 
-![](er.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task1/er.png)
