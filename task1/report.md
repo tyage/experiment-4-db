@@ -86,6 +86,7 @@
 
 ![](https://raw.githubusercontent.com/tyage/experiment-4/master/task1/er.png)
 
+### 実体集合
 - buyer (商品購入者)
     - id
         - 購入者id
@@ -122,3 +123,12 @@
         - 商品id
     - created_at
         - 購入日
+
+### 関連集合
+
+- buyer <- order
+    - 購入者は複数の注文を持つため
+- product <- order
+    - 同一商品の注文は複数あるため
+- seller <- product
+    - 販売者は複数の商品を扱い、商品は販売者ごとに異なるため
