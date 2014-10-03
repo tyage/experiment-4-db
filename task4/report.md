@@ -87,6 +87,9 @@ CREATE TABLE product_category (
 
 ```sql
 insert into buyer (email, name, password) values ('example@example.com', 'test', '*****');
+insert into category (name) values ('本'), ('食料品'), ('電化製品');
+insert into product (seller_id, name, cost) values (1, '鮭の切り身', 100), (1, '鮭のムニエル', 200), (1, '鮭のおにぎり', 100);
+insert into seller (email, name, password) values ('seller1@example.com', 'seller1', '********');
 ```
 
 ### データを表示
