@@ -14,6 +14,69 @@
 
 ## 1. 表の定義において，キーの指定により保持できる関数従属性や正規形について考察
 
+- buyer
+    - idにprimary keyを指定することで第二正規形が保持できる
+- seller
+    - idにprimary keyを指定することで第二正規形が保持できる
+- order
+    - idにprimary keyを指定することで第二正規形が保持できる
+    - buyer_idにforeign keyを指定することで第三正規形が保持できる
+    - product_idにforeign keyを指定することで第三正規形が保持できる
+- product
+    - idにprimary keyを指定することで第二正規形が保持できる
+    - seller_idにforeign keyを指定することで第三正規形が保持できる
+- product_category
+    - idにprimary keyを指定することで第二正規形が保持できる
+    - category_idにforeign keyを指定することで第三正規形が保持できる
+    - product_idにforeign keyを指定することで第三正規形が保持できる
+- category
+    - idにprimary keyを指定することで第二正規形が保持できる
+
 ## 2. 課題３で設計した関係スキーマに基づいてPostgreSQLで表を定義
 
+```sql
+CREATE TABLE buyer (
+  id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
+  email varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  password varchar(255) NOT NULL
+);
+CREATE TABLE seller (
+  id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
+  email varchar(255) NOT NULL,
+  name varchar(255) NOT NULL,
+  password varchar(255) NOT NULL
+);
+CREATE TABLE product (
+  id integer NOT NULL  PRIMARY KEY,
+  seller_id integer NOT NULL,
+  name varchar(255) NOT NULL,
+  cost integer NOT NULL,
+  FOREIGN KEY (seller_id) REFERENCES seller (id)
+);
+CREATE TABLE "order" (
+  id integer NOT NULL  PRIMARY KEY,
+  buyer_id integer NOT NULL,
+  product_id integer NOT NULL,
+  created_at datetime NOT NULL,
+  FOREIGN KEY (buyer_id) REFERENCES buyer (id),
+  FOREIGN KEY (product_id) REFERENCES product (id)
+);
+CREATE TABLE product_category (
+  id integer NOT NULL  PRIMARY KEY,
+  category_id integer NOT NULL,
+  product_id integer NOT NULL,
+  FOREIGN KEY (category_id) REFERENCES category (id),
+  FOREIGN KEY (product_id) REFERENCES product (id)
+);
+CREATE TABLE category (
+  id integer NOT NULL  PRIMARY KEY,
+  name varchar(255) NOT NULL
+);
+```
+
 ## 3. データを作成して，上記の表に挿入
+
+```sql
+
+```
