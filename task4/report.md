@@ -16,8 +16,10 @@
 
 - buyer
     - idにprimary keyを指定することで第二正規形が保持できる
+    - emailにuniqueを指定することで、email -> id, name, passwordの関数従属性が保持される
 - seller
     - idにprimary keyを指定することで第二正規形が保持できる
+    - emailにuniqueを指定することで、email -> id, name, passwordの関数従属性が保持される
 - order
     - idにprimary keyを指定することで第二正規形が保持できる
     - buyer_idにforeign keyを指定することで第三正規形が保持できる
@@ -39,13 +41,13 @@
 ```sql
 CREATE TABLE buyer (
   id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
-  email varchar(255) NOT NULL,
+  email varchar(255) NOT NULL UNIQUE,
   name varchar(255) NOT NULL,
   password varchar(255) NOT NULL
 );
 CREATE TABLE seller (
   id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
-  email varchar(255) NOT NULL,
+  email varchar(255) NOT NULL UNIQUE,
   name varchar(255) NOT NULL,
   password varchar(255) NOT NULL
 );
@@ -81,13 +83,13 @@ CREATE TABLE product_category (
 
 ## 3. データを作成して，上記の表に挿入
 
-データを挿入
+### データを挿入
 
 ```sql
 insert into buyer (email, name, password) values ('example@example.com', 'test', '*****');
 ```
 
-データを表示
+### データを表示
 
 ```sql
 select * from buyer;
