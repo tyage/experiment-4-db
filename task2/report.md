@@ -19,22 +19,23 @@ ER図を以下のように変更する
 - 関数従属性の集合
     - buyer
         - id -> email, name, password
-            - buyerはidをprimary keyに持つため
+            - 購入者のメールアドレス、名前、パスワードは購入者のIDから導かれる
         - email -> id, name, password
-            - buyerのemailはuniqueであるため
+            - 購入者のID、名前、パスワードは購入者のメールアドレスから導かれる
     - seller
         - id -> email, name, password
-            - sellerはidをprimary keyに持つため
+            - 販売者のメールアドレス、名前、パスワードは販売者のIDから導かれる
         - email -> id, name, password
-            - sellerのemailはuniqueであるため
+            - 販売者のID、名前、パスワードは販売者のメールアドレスから導かれる
     - order
         - id -> buyer_id, product_id, created_at
-            - orderはidをprimary keyに持つため
-    - product_group
-        - product_id -> product_seller_id, product_name, product_cost
-            - 同一の商品idを持つ商品は販売者、商品名、金額が同一であるため
+            - 購入者、購入商品、購入時刻は購入IDから導かれる
+    - category
+        - id -> name
+            - カテゴリ名はカテゴリIDから導かれる
+    - product
+        - id -> seller_id, name, cost
+            - 商品販売者、商品名、商品の値段は商品IDから導かれる
 - 自明でない多値従属性の集合
-    - product_group
-        - group_name -> (product_id, product_seller_id, product_name, producut_cost) | (category)
-            - 同一の商品グループの商品は、必ず同じカテゴリ群に所属するため
-            - 例: マグロのグループに所属する商品A、商品Bはどちらも食べ物、魚介のカテゴリを持つ
+    - product_id ->-> (category_id) | (buyer_id, created_at)
+        - 商品のIDからカテゴリIDの集合と、注文用の購入者IDと購入時刻の集合が導かれる
