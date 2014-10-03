@@ -12,10 +12,8 @@
 - seller (id, email, name, password)
 - order (id, buyer_id, product_id, created_at)
 - product (id, seller_id, name, cost)
-- group (id, name)
 - category (id, name)
-- group_product (id, group_id, product_id)
-- group_category (id, group_id, category_id)
+- product_category (id, product_id, category_id)
 
 ## 正規形
 
@@ -25,8 +23,6 @@
     - email, name, passwordはidに完全関数従属している
 - seller
     - email, name, passwordはidに完全関数従属している
-- group
-    - nameはidに完全関数従属している
 - category
     - nameはidに完全関数従属している
 
@@ -39,7 +35,5 @@
 
 ### 第四正規形
 
-- group_product
-    - 自明でない多値従属性は、group_id, product_idのキーの関数従属性から導かれるものである
-- group_category
-    - 自明でない多値従属性は、group_id, category_idのキーの関数従属性から導かれるものである
+- product_category, order
+    - 自明でない多値従属性 product_id ->-> (category_id) | (buyer_id, creted_at) はキーの関数従属性から導かれるものである。
