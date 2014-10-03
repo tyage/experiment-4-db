@@ -34,28 +34,30 @@
 
 ## 2. 課題３で設計した関係スキーマに基づいてPostgreSQLで表を定義
 
+「課題１,２,３で設計したデータベースを実際にSQLiteで構築し，SQLによる検索文を作成する．」とあったため、SQLiteで定義しました。
+
 ```sql
 CREATE TABLE buyer (
-  id SERIAL NOT NULL  PRIMARY KEY,
+  id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
   email varchar(255) NOT NULL,
   name varchar(255) NOT NULL,
   password varchar(255) NOT NULL
 );
 CREATE TABLE seller (
-  id SERIAL NOT NULL  PRIMARY KEY,
+  id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
   email varchar(255) NOT NULL,
   name varchar(255) NOT NULL,
   password varchar(255) NOT NULL
 );
 CREATE TABLE product (
-  id SERIAL NOT NULL  PRIMARY KEY,
+  id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
   seller_id integer NOT NULL,
   name varchar(255) NOT NULL,
   cost integer NOT NULL,
   FOREIGN KEY (seller_id) REFERENCES seller (id)
 );
 CREATE TABLE "order" (
-  id SERIAL NOT NULL  PRIMARY KEY,
+  id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
   buyer_id integer NOT NULL,
   product_id integer NOT NULL,
   created_at timestamp NOT NULL,
@@ -63,11 +65,11 @@ CREATE TABLE "order" (
   FOREIGN KEY (product_id) REFERENCES product (id)
 );
 CREATE TABLE category (
-  id SERIAL NOT NULL  PRIMARY KEY,
+  id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
   name varchar(255) NOT NULL
 );
 CREATE TABLE product_category (
-  id SERIAL NOT NULL  PRIMARY KEY,
+  id integer NOT NULL  PRIMARY KEY AUTOINCREMENT,
   category_id integer NOT NULL,
   product_id integer NOT NULL,
   FOREIGN KEY (category_id) REFERENCES category (id),
@@ -90,8 +92,5 @@ insert into buyer (email, name, password) values ('example@example.com', 'test',
 ```sql
 select * from buyer;
 
- id |        email        | name | password
-----+---------------------+------+----------
-  1 | example@example.com | test | *****
-(1 row)
+1|example@example.com|test|*****
 ```
