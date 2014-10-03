@@ -28,11 +28,10 @@ ER図を以下のように変更する
         - email -> id, name, password
             - sellerのemailはuniqueであるため
     - order
-        - id -> buyer_id, product_id, created_at
+        - id -> buyer_id, created_at
             - orderはidをprimary keyに持つため
-    - product
-        - id -> seller_id, name, cost
-            - productはidをprimary keyに持つため
-        - seller_id, name -> id, cost
-            - seller_idとnameが同じproductは複数存在しないため
 - 自明でない多値従属性の集合
+    - product_group
+        - group_name -> (product_name) | (category)
+            - 同一の商品グループの商品は、必ず同じカテゴリ群に所属するため
+            - 例: マグロのグループに所属する商品A、商品Bはどちらも食べ物、魚介のカテゴリを持つ
