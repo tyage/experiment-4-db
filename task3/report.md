@@ -40,6 +40,6 @@
 ### 第四正規形
 
 - group_product
-    - 自明でない多値従属性は、group_id, product_idのキーの関係従属性から導かれるものである
+    - 自明でない多値従属性は、group_id, product_idのキーの関数従属性から導かれるものである
 - group_category
-    - 自明でない多値従属性は、group_id, category_idのキーの関係従属性から導かれるものである
+    - 自明でない多値従属性は、group_id, category_idのキーの関数従属性から導かれるものである
