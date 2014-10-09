@@ -1,7 +1,13 @@
 <nav class="navbar navbar-default">
   <ul class="nav navbar-nav">
     <li><%= link_to "top", root_path %></li>
-    <li><%= link_to "販売者ログイン", seller_session_path %></li>
-    <li><%= link_to "購買者ログイン", buyer_session_path %></li>
+    <% if current_seller %>
+      <li><%= link_to "ログアウト", destroy_seller_session_path, :method => :delete %></li>
+    <% elsif current_buyer %>
+      <li><%= link_to "ログアウト", destroy_buyer_session_path, :method => :delete %></li>
+    <% else %>
+      <li><%= link_to "販売者ログイン", seller_session_path %></li>
+      <li><%= link_to "購買者ログイン", buyer_session_path %></li>
+    <% end %>
   </ul>
 </nav>
