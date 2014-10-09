@@ -1,6 +1,6 @@
 class AddDeviseToSellers < ActiveRecord::Migration
   def self.up
-    change_column :sellers :email, :string, null: false, default: ""
+    change_column :sellers, :email, :string, null: false, default: ""
     change_table(:sellers) do |t|
       ## Database authenticatable
       t.string :encrypted_password, null: false, default: ""
