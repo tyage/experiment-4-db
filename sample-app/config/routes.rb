@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :buyers
   devise_for :sellers
   resources :orders
 
