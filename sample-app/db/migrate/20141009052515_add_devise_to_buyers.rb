@@ -1,8 +1,8 @@
 class AddDeviseToBuyers < ActiveRecord::Migration
   def self.up
+    change_column :buyers, :email, :string, null: false, default: ""
     change_table(:buyers) do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable
