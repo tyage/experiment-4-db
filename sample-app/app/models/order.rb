@@ -1,4 +1,4 @@
 class Order < ActiveRecord::Base
-  has_many :buyers
-  has_many :products
+  belongs_to :buyer
+  belongs_to :product
 end
