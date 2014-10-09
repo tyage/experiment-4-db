@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :sellers
+
   resources :buyers
 
   # The priority is based upon order of creation: first created -> highest priority.
