@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root :to => "home#index"
+
   devise_for :buyers
   devise_for :sellers
   resources :orders
