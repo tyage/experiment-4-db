@@ -1,13 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @seller.email %>
-</p>
+<% if @seller == current_seller %>
+  <%= link_to 'アカウント設定', edit_seller_registration_path %>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @seller.name %>
-</p>
-
-<%= link_to 'Edit', edit_seller_registration_path %>
+<dl class="dl-horizontal">
+  <dt>メールアドレス</dt>
+  <dd><%= @seller.email %></dd>
+  <dt>名前</dt>
+  <dd><%= @seller.name %></dd>
+</dl>
