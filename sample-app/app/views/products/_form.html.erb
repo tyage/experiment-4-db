@@ -11,19 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :seller_id %><br>
-    <%= f.number_field :seller_id %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+
+  <div class="form-group">
+    <%= f.label :cost %>
+    <%= f.number_field :cost, class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :cost %><br>
-    <%= f.number_field :cost %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-group">
+    <%= f.submit "作成", class: "btn btn-default" %>
   </div>
 <% end %>

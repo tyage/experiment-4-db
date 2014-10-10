@@ -13,6 +13,7 @@
     <% @seller.products.each do |product| %>
       <tr>
         <td><%= link_to product.name, product_path(product) %></td>
+        <td><%= product.cost %></td>
       </tr>
     <% end %>
   </tbody>
