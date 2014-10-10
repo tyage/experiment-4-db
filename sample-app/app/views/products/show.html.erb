@@ -5,6 +5,12 @@
   <dd><%= @product.name %></dd>
   <dt>価格</dt>
   <dd><%= @product.cost %></dd>
+  <dt>カテゴリ</dt>
+  <dd>
+    <% @product.categories.each do |category| %>
+      <%= category.name %>
+    <% end %>
+  </dd>
 </dl>
 
 <% if current_buyer %>
