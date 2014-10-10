@@ -1,19 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Seller:</strong>
-  <%= @product.seller_id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
-
-<p>
-  <strong>Cost:</strong>
-  <%= @product.cost %>
-</p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<dl class="dl-horizontal">
+  <dt>販売者</dt>
+  <dd><%= link_to @product.seller.name, seller_path(@product.seller) %></dd>
+  <dt>商品名</dt>
+  <dd><%= @product.name %></dd>
+  <dt>価格</dt>
+  <dd><%= @product.cost %></dd>
+</dl>
