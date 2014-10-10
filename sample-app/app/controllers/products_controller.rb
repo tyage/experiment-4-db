@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_seller!, except: [:show, :index]
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :product_seller, only: [:edit, :update]
+  before_action :authenticate_seller!, except: [:show, :index, :orders]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :orders]
+  before_action :product_seller, only: [:edit, :update, :orders]
 
   # GET /products
   # GET /products.json
@@ -54,6 +54,10 @@ class ProductsController < ApplicationController
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /products/1/orders
+  def orders
   end
 
   private
