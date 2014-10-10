@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_seller!, except: [:show, :index, :orders]
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :orders]
-  before_action :product_seller, only: [:edit, :update, :orders]
+  before_action :authenticate_seller!, except: [:show, :index, :sold]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :sold]
+  before_action :product_seller, only: [:edit, :update, :sold]
 
   # GET /products
   # GET /products.json
@@ -56,8 +56,8 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/1/orders
-  def orders
+  # GET /products/1/sold
+  def sold
   end
 
   private

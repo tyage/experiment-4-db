@@ -19,5 +19,5 @@
 
 <% if @product.seller == current_seller %>
   <%= link_to '編集', edit_product_path(@product) %>
-  <%= link_to '購入履歴', product_orders_path(@product) %>
+  <%= link_to '販売履歴', product_sold_path(@product) %>
 <% end %>
