@@ -11,19 +11,8 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :buyer_id %><br>
-    <%= f.number_field :buyer_id %>
-  </div>
-  <div class="field">
-    <%= f.label :product_id %><br>
-    <%= f.number_field :product_id %>
-  </div>
-  <div class="field">
-    <%= f.label :created_at %><br>
-    <%= f.datetime_select :created_at %>
-  </div>
+  <%= f.hidden_field :product_id %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "購入する", class: "btn btn-default" %>
   </div>
 <% end %>

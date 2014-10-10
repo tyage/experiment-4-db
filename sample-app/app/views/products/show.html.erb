@@ -8,3 +8,7 @@
   <dt>価格</dt>
   <dd><%= @product.cost %></dd>
 </dl>
+
+<% if current_buyer %>
+  <%= render 'orders/form' %>
+<% end %>
