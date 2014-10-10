@@ -1,14 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @buyer.email %>
-</p>
+<% if @buyer == current_buyer %>
+  <%= link_to 'アカウント設定', edit_buyer_registration_path %>
+<% end %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @buyer.name %>
-</p>
-
-<%= link_to 'Edit', edit_buyer_path(@buyer) %> |
-<%= link_to 'Back', buyers_path %>
+<dl class="dl-horizontal">
+  <dt>メールアドレス</dt>
+  <dd><%= @buyer.email %></dd>
+  <dt>名前</dt>
+  <dd><%= @buyer.name %></dd>
+</dl>
