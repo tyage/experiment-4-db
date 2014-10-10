@@ -2,7 +2,7 @@
   <ul class="nav navbar-nav">
     <li><%= link_to "top", root_path %></li>
     <% if current_seller %>
-      <li><%= link_to "商品管理", products_path %></li>
+      <li><%= link_to "商品管理", seller_products_path(current_seller) %></li>
       <li><%= link_to "マイページ", seller_path(current_seller) %></li>
       <li><%= link_to "ログアウト", destroy_seller_session_path, :method => :delete %></li>
     <% elsif current_buyer %>

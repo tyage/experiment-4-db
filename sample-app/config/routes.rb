@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :products
 
   resources :sellers, :only => [:show]
+  get 'sellers/:id/products' => 'sellers#products', as: :seller_products
 
   resources :buyers, :only => [:show]
 

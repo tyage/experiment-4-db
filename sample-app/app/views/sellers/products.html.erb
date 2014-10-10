@@ -1,0 +1,19 @@
+<% if @seller == current_seller %>
+  <%= link_to "商品追加", new_product_path %>
+<% end %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>商品</th>
+      <th>価格</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @seller.products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, product_path(product) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

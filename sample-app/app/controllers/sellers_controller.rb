@@ -1,5 +1,5 @@
 class SellersController < ApplicationController
-  before_action :set_seller, only: [:show, :destroy]
+  before_action :set_seller, only: [:show, :destroy, :products]
 
   # GET /sellers
   # GET /sellers.json
@@ -60,6 +60,10 @@ class SellersController < ApplicationController
       format.html { redirect_to sellers_url, notice: 'Seller was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /sellers/1/products
+  def products
   end
 
   private
