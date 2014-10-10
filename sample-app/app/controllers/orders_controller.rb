@@ -1,11 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
-
-  # GET /orders
-  # GET /orders.json
-  def index
-    @orders = Order.all
-  end
+  before_action :authenticate_buyer!, except: [:show]
+  before_action :set_order, only: [:show, :destroy]
 
   # GET /orders/1
   # GET /orders/1.json
@@ -29,20 +24,6 @@ class OrdersController < ApplicationController
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /orders/1
-  # PATCH/PUT /orders/1.json
-  def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end

@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   devise_for :buyers
   devise_for :sellers
-  resources :orders
+
+  resources :orders, :only => [:show, :new, :create]
 
   resources :categories
 
