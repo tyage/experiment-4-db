@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>価格</th>
+      <th>販売者</th>
+      <th>カテゴリ</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, product_path(product) %></td>
+        <td><%= product.cost %></td>
+        <td><%= link_to product.seller.name, seller_path(product.seller) %></td>
+        <td>
+          <% product.categories.each do |category| %>
+            <%= link_to category.name, category %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
