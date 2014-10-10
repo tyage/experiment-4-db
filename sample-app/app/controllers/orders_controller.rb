@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_buyer!, except: [:show]
   before_action :set_order, only: [:show, :destroy]
+  before_action :order_buyer, only: [:show, :destroy]
 
   # GET /orders/1
   # GET /orders/1.json
@@ -48,5 +49,9 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:buyer_id, :product_id, :created_at)
+    end
+
+    def order_buyer
+      redirect_to root_path unless @order.buyer == current_buyer
     end
 end
