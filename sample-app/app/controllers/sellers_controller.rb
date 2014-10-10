@@ -17,6 +17,14 @@ class SellersController < ApplicationController
     @products = current_seller.products
   end
 
+  def sold
+    @orders = current_seller.products.map do |p|
+      p.orders
+    end .flatten.sort do |a, b|
+      b.created_at <=> a.created_at
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seller

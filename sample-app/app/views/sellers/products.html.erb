@@ -1,5 +1,6 @@
 <% if @seller == current_seller %>
-  <%= link_to "商品追加", new_product_path %>
+  <%= link_to '商品追加', new_product_path %>
+  <%= link_to '販売履歴', seller_sold_path %>
 <% end %>
 
 <%= render 'products/list' %>
