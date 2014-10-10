@@ -1,0 +1,18 @@
+<h1><%= @product.name %>の購入履歴</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>購入者</th>
+      <th>購入日時</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @product.orders.each do |order| %>
+      <tr>
+        <td><%= link_to order.buyer.name, order.buyer %></td>
+        <td><%= order.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
