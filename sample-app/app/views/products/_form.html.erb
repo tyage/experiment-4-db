@@ -19,7 +19,7 @@
   <div class="form-group">
     <%= f.label :categories, "カテゴリ" %>
     <div class="checkbox">
-      <%= f.collection_check_boxes(:categors, Category.all, :id, :name) do |b| %>
+      <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
         <label>
           <%= b.check_box %>
           <%= b.text %>
