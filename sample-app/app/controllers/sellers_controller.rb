@@ -14,6 +14,7 @@ class SellersController < ApplicationController
 
   # GET /sellers/1/products
   def products
+    @products = current_seller.products
   end
 
   private

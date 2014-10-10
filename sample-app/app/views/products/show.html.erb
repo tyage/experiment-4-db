@@ -1,3 +1,7 @@
+<% if @product.seller == current_seller %>
+  <%= link_to '編集', edit_product_path(@product) %>
+<% end %>
+
 <dl class="dl-horizontal">
   <dt>販売者</dt>
   <dd><%= link_to @product.seller.name, seller_path(@product.seller) %></dd>

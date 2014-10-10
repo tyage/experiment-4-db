@@ -5,9 +5,9 @@
       <th>価格</th>
       <th>販売者</th>
       <th>カテゴリ</th>
+      <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @products.each do |product| %>
       <tr>
@@ -17,6 +17,11 @@
         <td>
           <% product.categories.each do |category| %>
             <%= link_to category.name, category %>
+          <% end %>
+        </td>
+        <td>
+          <% if product.seller == current_seller %>
+            <%= link_to '編集', edit_product_path(product) %>
           <% end %>
         </td>
       </tr>
