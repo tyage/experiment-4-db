@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate_seller!, except: [:show, :index]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :product_seller, only: [:edit, :update]
 
   # GET /products
   # GET /products.json
@@ -72,5 +73,9 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:seller_id, :name, :cost)
+    end
+
+    def product_seller
+      redirect_to root_path unless @product.seller == current_seller
     end
 end
