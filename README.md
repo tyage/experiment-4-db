@@ -8,3 +8,7 @@
 $ npm install
 $ ./node_modules/.bin/markdown-pdf [path to markdown file]
 ```
+
+## demo application
+
+see [README](https://github.com/tyage/experiment-4/tree/master/sample-app/README.md)
