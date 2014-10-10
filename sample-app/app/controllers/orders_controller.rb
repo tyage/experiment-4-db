@@ -17,14 +17,11 @@ class OrdersController < ApplicationController
     @order = Order.new
   end
 
-  # GET /orders/1/edit
-  def edit
-  end
-
   # POST /orders
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @order.buyer = current_buyer
 
     respond_to do |format|
       if @order.save
