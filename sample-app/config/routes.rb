@@ -7,9 +7,9 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  resources :products, :only => [:show, :edit, :update, :new, :create]
+  resources :products, :only => [:show, :edit, :update, :new, :create, :index]
 
-  resources :sellers, :only => [:show]
+  resources :sellers, :only => [:show, :index]
   get 'sellers/:id/products' => 'sellers#products', as: :seller_products
 
   resources :buyers, :only => [:show]
