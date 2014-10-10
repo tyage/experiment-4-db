@@ -7,6 +7,7 @@
     <tr>
       <th>商品</th>
       <th>価格</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -14,6 +15,7 @@
       <tr>
         <td><%= link_to product.name, product_path(product) %></td>
         <td><%= product.cost %></td>
+        <td><%= link_to "編集", edit_product_path(product) %></td>
       </tr>
     <% end %>
   </tbody>
