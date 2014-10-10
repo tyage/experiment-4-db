@@ -17,6 +17,18 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :categories, "カテゴリー" %>
+    <div class="checkbox">
+      <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
+        <label>
+          <%= b.check_box %>
+          <%= b.text %>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <%= f.label :cost, "価格" %>
     <%= f.number_field :cost, class: "form-control" %>
   </div>
