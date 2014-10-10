@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>商品</th>
+      <th>価格</th>
+      <th>購入日</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% current_buyer.orders.each do |order| %>
+      <tr>
+        <td><%= link_to order.product.name, product_path(order.product) %></td>
+        <td><%= order.product.cost %></td>
+        <td><%= order.created_at %></td>
+        <td><%= link_to "キャンセル", order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
