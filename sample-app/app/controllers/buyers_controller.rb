@@ -6,6 +6,10 @@ class BuyersController < ApplicationController
   def show
   end
 
+  # GET /buyers/orders
+  def orders
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_buyer

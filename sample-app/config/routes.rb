@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :sellers, :only => [:show, :index]
   get 'sellers/:id/products' => 'sellers#products', as: :seller_products
 
+  get 'buyers/orders' => 'buyers#orders', as: :buyer_orders
   resources :buyers, :only => [:show]
 
   # The priority is based upon order of creation: first created -> highest priority.

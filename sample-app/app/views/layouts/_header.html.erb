@@ -10,6 +10,7 @@
       <li><%= link_to 'マイページ', seller_path(current_seller) %></li>
       <li><%= link_to 'ログアウト', destroy_seller_session_path, :method => :delete %></li>
     <% elsif current_buyer %>
+      <li><%= link_to '注文履歴', buyer_orders_path %></li>
       <li><%= link_to 'マイページ', buyer_path(current_buyer) %></li>
       <li><%= link_to 'ログアウト', destroy_buyer_session_path, :method => :delete %></li>
     <% else %>
