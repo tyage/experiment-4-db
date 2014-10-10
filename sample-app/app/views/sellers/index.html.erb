@@ -1,27 +1,19 @@
-<h1>Listing sellers</h1>
+<h1>販売者一覧</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Email</th>
-      <th>Name</th>
-      <th colspan="3"></th>
+      <th>名前</th>
+      <th>メールアドレス</th>
     </tr>
   </thead>
 
   <tbody>
     <% @sellers.each do |seller| %>
       <tr>
+        <td><%= link_to seller.name, seller_path(seller) %></td>
         <td><%= seller.email %></td>
-        <td><%= seller.name %></td>
-        <td><%= link_to 'Show', seller %></td>
-        <td><%= link_to 'Edit', edit_seller_path(seller) %></td>
-        <td><%= link_to 'Destroy', seller, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Seller', new_seller_path %>
