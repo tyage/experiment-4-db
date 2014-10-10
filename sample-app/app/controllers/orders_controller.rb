@@ -8,11 +8,6 @@ class OrdersController < ApplicationController
   def show
   end
 
-  # GET /orders/new
-  def new
-    @order = Order.new
-  end
-
   # POST /orders
   # POST /orders.json
   def create
