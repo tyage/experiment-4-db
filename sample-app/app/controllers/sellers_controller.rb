@@ -1,5 +1,5 @@
 class SellersController < ApplicationController
-  before_action :set_seller, only: [:show, :edit, :update, :destroy]
+  before_action :set_seller, only: [:show, :destroy]
 
   # GET /sellers
   # GET /sellers.json
@@ -19,6 +19,7 @@ class SellersController < ApplicationController
 
   # GET /sellers/1/edit
   def edit
+    @seller = current_seller
   end
 
   # POST /sellers
