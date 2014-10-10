@@ -3,11 +3,9 @@
 one:
   email: seller1@example.com
   name: seller1
-  encrypted_password: <%= User.new.send(:password_digest, "password") %>
-  confirmed_at: <%= Time.now %>
+  encrypted_password: <%= Seller.new.send(:password_digest, "password") %>
 
 two:
   email: seller2@example.com
   name: seller2
-  encrypted_password: <%= User.new.send(:password_digest, "password") %>
-  confirmed_at: <%= Time.now %>
+  encrypted_password: <%= Seller.new.send(:password_digest, "password") %>
