@@ -3,11 +3,6 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :destroy]
   before_action :order_buyer, only: [:show, :destroy]
 
-  # GET /orders/1
-  # GET /orders/1.json
-  def show
-  end
-
   # POST /orders
   # POST /orders.json
   def create
