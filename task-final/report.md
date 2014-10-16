@@ -358,23 +358,27 @@ id          name
 
 サインインしているユーザの情報を表示します
 
-関係しているテーブル:
+関係しているテーブル: buyers
 
 ```sql
+  Buyer Load (0.1ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."id" = ? LIMIT 1  [["id", 2]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-show.png)
 
 #### アカウント設定
 
 サインインしているユーザの情報を更新します
 
-関係しているテーブル:
+関係しているテーブル: buyers
 
 ```sql
+   (0.1ms)  begin transaction
+  SQL (0.6ms)  UPDATE "buyers" SET "name" = ?, "updated_at" = ? WHERE "buyers"."id" = 2  [["name", "購入者2"], ["updated_at", "2014-10-16 06:38:11.722874"]]
+   (8.9ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-edit.png)
 
 ### 商品販売者用
 
