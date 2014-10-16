@@ -24,7 +24,7 @@
     - 販売商品一覧表示
         - 指定した商品販売者の販売している商品を一覧で表示します
     - 商品一覧表示
-        - 指定した販売者の販売している商品を一覧で表示します
+        - 商品を一覧で表示します
     - 商品詳細表示
         - 指定した商品の商品名・販売者・価格・カテゴリ情報を表示します
     - カテゴリ一覧表示
@@ -199,7 +199,7 @@ id          name
 関係しているテーブル: sellers
 
 ```sql
-SELECT "sellers".* FROM "sellers"
+  Seller Load (0.2ms)  SELECT "sellers".* FROM "sellers"
 ```
 
 ![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/sellers.png)
@@ -211,7 +211,7 @@ SELECT "sellers".* FROM "sellers"
 関係しているテーブル: sellers
 
 ```sql
-SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
+  Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
 ```
 
 ![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-show.png)
@@ -223,22 +223,44 @@ SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]
 関係しているテーブル: sellers, products, categories
 
 ```sql
-SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
-SELECT "products".* FROM "products"  WHERE "products"."seller_id" = ?  [["seller_id", 1]]
-SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 1]]
-SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 2]]
-SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
+  Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
+  Product Load (0.1ms)  SELECT "products".* FROM "products"  WHERE "products"."seller_id" = ?  [["seller_id", 1]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 1]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 2]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
 ```
 
 ![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-product.png)
 
 #### 商品一覧表示
 
-指定した販売者の販売している商品を一覧で表示します
+商品を一覧で表示します
+
+関係しているテーブル: sellers, products, categories
+
+```sql
+  Product Load (0.2ms)  SELECT "products".* FROM "products"
+  Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 1]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 2]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/products.png)
 
 #### 商品詳細表示
 
 指定した商品の商品名・販売者・価格・カテゴリ情報を表示します
+
+関係しているテーブル: sellers, products, categories
+
+```sql
+  Product Load (0.1ms)  SELECT  "products".* FROM "products"  WHERE "products"."id" = ? LIMIT 1  [["id", 3]]
+  Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/product-show.png)
 
 #### カテゴリ一覧表示
 
