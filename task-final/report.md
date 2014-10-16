@@ -434,34 +434,44 @@ id          name
 
 ユーザの販売している、過去に購入された商品と購入者を一覧で表示します
 
-関係しているテーブル:
+関係しているテーブル: product, orders, buyers
 
 ```sql
+  Product Load (0.1ms)  SELECT "products".* FROM "products"  WHERE "products"."seller_id" = ?  [["seller_id", 1]]
+  Order Load (0.1ms)  SELECT "orders".* FROM "orders"  WHERE "orders"."product_id" = ?  [["product_id", 1]]
+  Order Load (0.0ms)  SELECT "orders".* FROM "orders"  WHERE "orders"."product_id" = ?  [["product_id", 2]]
+  Order Load (0.1ms)  SELECT "orders".* FROM "orders"  WHERE "orders"."product_id" = ?  [["product_id", 3]]
+  Order Load (0.0ms)  SELECT "orders".* FROM "orders"  WHERE "orders"."product_id" = ?  [["product_id", 4]]
+  Buyer Load (0.1ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."id" = ? LIMIT 1  [["id", 1]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-sold.png)
 
 #### 商品別販売履歴
 
 ユーザの販売している、指定した商品の販売履歴を一覧で表示します
 
-関係しているテーブル:
+関係しているテーブル: product, orders, buyers
 
 ```sql
+  Product Load (0.1ms)  SELECT  "products".* FROM "products"  WHERE "products"."id" = ? LIMIT 1  [["id", 2]]
+  Order Load (0.1ms)  SELECT "orders".* FROM "orders"  WHERE "orders"."product_id" = ?  [["product_id", 2]]
+  Buyer Load (0.0ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."id" = ? LIMIT 1  [["id", 1]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/product-sold.png)
 
 #### 購入者詳細表示
 
 購入者の名前、メールアドレスを表示します
 
-関係しているテーブル:
+関係しているテーブル: buyers
 
 ```sql
+  Buyer Load (0.1ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."id" = ? LIMIT 1  [["id", 1]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-show.png)
 
 #### 新規登録
 
