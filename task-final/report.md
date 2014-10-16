@@ -266,9 +266,29 @@ id          name
 
 カテゴリを一覧で表示します
 
+関係しているテーブル: categories
+
+```sql
+  Category Load (0.2ms)  SELECT "categories".* FROM "categories"
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/categories.png)
+
 #### カテゴリ別商品一覧表示
 
 指定したカテゴリに属している商品を一覧で表示します
+
+関係しているテーブル: sellers, products, categories
+
+```sql
+  Category Load (0.2ms)  SELECT  "categories".* FROM "categories"  WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
+  Product Load (0.1ms)  SELECT "products".* FROM "products" INNER JOIN "product_categories" ON "products"."id" = "product_categories"."product_id" WHERE "product_categories"."category_id" = ?  [["category_id", 2]]
+  Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 2]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/category-show.png)
 
 ### 商品購入者用
 
