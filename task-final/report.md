@@ -74,7 +74,9 @@
 
 ![](https://raw.githubusercontent.com/tyage/experiment-4/master/task2/er.png)
 
-### buyer
+## 関係スキーマ
+
+### buyers
 
 購入者テーブル
 
@@ -83,7 +85,14 @@
 - name: 購入者名
 - password: ログイン用パスワード
 
-### seller
+```sql
+sqlite> select id, email, name, encrypted_password from buyers;
+id          email               name        encrypted_password
+----------  ------------------  ----------  ------------------------------------------------------------
+1           buyer1@example.com  buyer1      $2a$10$LwQNsuXRP2MT0mL0/FhV/.mZmfjBrOmHiBi2MgxoBgsz3SNVFvR9O
+```
+
+### sellers
 
 販売者テーブル
 
@@ -92,7 +101,14 @@
 - name: 販売者名
 - password: ログイン用パスワード
 
-### order
+```sql
+sqlite> select id, email, name, encrypted_password from sellers;
+id          email                name        encrypted_password
+----------  -------------------  ----------  ------------------------------------------------------------
+1           example@example.com  amaz0n      $2a$10$yKRC60BDFzzP0rZ2c.rL/OJ3f2VXTFTNEFL5jBAOCfKI9OrmqKGj6
+```
+
+### orders
 
 注文テーブル
 
@@ -101,7 +117,19 @@
 - product_id: 商品id
 - created_at: 注文日時
 
-### product
+```sql
+sqlite> select id, buyer_id, product_id, created_at from orders;
+id          buyer_id    product_id  created_at
+----------  ----------  ----------  --------------------------
+1           1           1           2014-10-10 02:38:16.410485
+5           1           2           2014-10-10 02:54:17.364471
+7           1           1           2014-10-10 03:43:10.852484
+8           1           1           2014-10-10 03:44:25.620149
+9           1           1           2014-10-10 04:16:59.032564
+10          1           3           2014-10-10 06:47:41.326692
+```
+
+### products
 
 商品テーブル
 
@@ -110,7 +138,16 @@
 - name: 商品名
 - cost: 商品価格
 
-### product_category
+```sql
+sqlite> select id, seller_id, cost, name from products;
+id  seller_id   cost        name
+--  ----------  ----------  ------------------------------
+1   1           101         絵本
+2   1           200         オリーブオイル
+3   1           200         秋刀魚の塩焼き
+```
+
+### product_categories
 
 商品カテゴリテーブル
 
@@ -118,9 +155,34 @@
 - category_id: カテゴリid
 - product_id: 商品id
 
-### category
+```sql
+sqlite> select id, category_id, product_id from product_categories;
+id          category_id  product_id
+----------  -----------  ----------
+3           1            1
+4           2            2
+5           3            2
+6           2            3
+```
+
+### categories
 
 カテゴリテーブル
 
 - id: id
 - name: カテゴリ名
+
+```sql
+sqlite> select id, name from categories;
+id          name
+----------  --------------------
+1           本
+2           食料品
+3           電化製品
+```
+
+## 機能・インターフェイス
+
+## 工夫点
+
+## 感想
