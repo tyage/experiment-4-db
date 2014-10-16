@@ -196,6 +196,8 @@ id          name
 
 商品販売者を一覧で表示します
 
+関係しているテーブル: sellers
+
 ```sql
 SELECT "sellers".* FROM "sellers"
 ```
@@ -206,9 +208,29 @@ SELECT "sellers".* FROM "sellers"
 
 商品販売者の名前、メールアドレスを表示します
 
+関係しているテーブル: sellers
+
+```sql
+SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-show.png)
+
 #### 販売商品一覧表示
 
 指定した商品販売者の販売している商品を一覧で表示します
+
+関係しているテーブル: sellers, products, categories
+
+```sql
+SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
+SELECT "products".* FROM "products"  WHERE "products"."seller_id" = ?  [["seller_id", 1]]
+SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 1]]
+SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 2]]
+SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-product.png)
 
 #### 商品一覧表示
 
