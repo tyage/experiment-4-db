@@ -74,6 +74,13 @@
 
 ![](https://raw.githubusercontent.com/tyage/experiment-4/master/task2/er.png)
 
+- buyer: 購入者
+- seller: 販売者
+- order: 注文
+- product: 商品
+- product_category: 商品とカテゴリの関係
+- category: カテゴリ
+
 ## 関係スキーマ
 
 ### buyers
