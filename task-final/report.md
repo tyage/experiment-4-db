@@ -296,29 +296,83 @@ id          name
 
 指定した商品を購入します
 
+関係しているテーブル: orders
+
+```sql
+  SQL (0.4ms)  INSERT INTO "orders" ("buyer_id", "created_at", "product_id", "updated_at") VALUES (?, ?, ?, ?)  [["buyer_id", 1], ["created_at", "2014-10-16 06:21:50.473507"], ["product_id", 2], ["updated_at", "2014-10-16 06:21:50.473507"]]
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/order-new.png)
+
 #### 購入履歴一覧表示
 
 過去にユーザが購入した商品を表示します
+
+関係しているテーブル: orders, products
+
+```sql
+  Order Load (0.1ms)  SELECT "orders".* FROM "orders"  WHERE "orders"."buyer_id" = ?  [["buyer_id", 1]]
+  Product Load (0.1ms)  SELECT  "products".* FROM "products"  WHERE "products"."id" = ? LIMIT 1  [["id", 1]]
+  Product Load (0.1ms)  SELECT  "products".* FROM "products"  WHERE "products"."id" = ? LIMIT 1  [["id", 2]]
+  Product Load (0.1ms)  SELECT  "products".* FROM "products"  WHERE "products"."id" = ? LIMIT 1  [["id", 3]]
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/orders.png)
 
 #### 新規登録
 
 商品購入者情報を新規に登録します
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### サインイン
 
 商品購入者idとpasswordを入力してサインインします
+
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
 
 #### サインアウト
 
 商品購入者セッションを削除しサインアウトします
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### マイページ
 
 サインインしているユーザの情報を表示します
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### アカウント設定
 
 サインインしているユーザの情報を更新します
+
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
 
 ### 商品販売者用
 
@@ -326,45 +380,122 @@ id          name
 
 ユーザの販売している商品一覧を表示します
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### 商品追加
 
 ユーザの販売商品を追加します
+
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
 
 #### 商品情報更新
 
 ユーザの販売している、指定した商品の情報を更新します
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### 販売履歴
 
 ユーザの販売している、過去に購入された商品と購入者を一覧で表示します
+
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
 
 #### 商品別販売履歴
 
 ユーザの販売している、指定した商品の販売履歴を一覧で表示します
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### 購入者詳細表示
 
 購入者の名前、メールアドレスを表示します
+
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
 
 #### 新規登録
 
 商品販売者情報を新規に登録します
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### サインイン
 
 商品販売者idとpasswordを入力してサインインします
+
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
 
 #### サインアウト
 
 商品販売者セッションを削除しサインアウトします
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### マイページ
 
 サインインしているユーザの情報を表示します
 
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+
 #### アカウント設定
 
 サインインしているユーザの情報を更新します
+
+関係しているテーブル:
+
+```sql
+```
+
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
 
 ## 工夫点
 
