@@ -220,7 +220,7 @@ id          name
 
 指定した商品販売者の販売している商品を一覧で表示します
 
-関係しているテーブル: sellers, products, categories
+関係しているテーブル: sellers, products, categories, product_categories
 
 ```sql
   Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
@@ -236,7 +236,7 @@ id          name
 
 商品を一覧で表示します
 
-関係しているテーブル: sellers, products, categories
+関係しているテーブル: sellers, products, categories, product_categories
 
 ```sql
   Product Load (0.2ms)  SELECT "products".* FROM "products"
@@ -252,7 +252,7 @@ id          name
 
 指定した商品の商品名・販売者・価格・カテゴリ情報を表示します
 
-関係しているテーブル: sellers, products, categories
+関係しているテーブル: sellers, products, categories, product_categories
 
 ```sql
   Product Load (0.1ms)  SELECT  "products".* FROM "products"  WHERE "products"."id" = ? LIMIT 1  [["id", 3]]
@@ -278,7 +278,7 @@ id          name
 
 指定したカテゴリに属している商品を一覧で表示します
 
-関係しているテーブル: sellers, products, categories
+関係しているテーブル: sellers, products, categories, product_categories
 
 ```sql
   Category Load (0.2ms)  SELECT  "categories".* FROM "categories"  WHERE "categories"."id" = ? LIMIT 1  [["id", 2]]
