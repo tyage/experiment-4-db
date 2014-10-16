@@ -386,34 +386,49 @@ id          name
 
 ユーザの販売している商品一覧を表示します
 
-関係しているテーブル:
+関係しているテーブル: sellers, products, categories, product_categories
 
 ```sql
+  Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
+  Product Load (0.1ms)  SELECT "products".* FROM "products"  WHERE "products"."seller_id" = ?  [["seller_id", 1]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 1]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 2]]
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-product.png)
 
 #### 商品追加
 
 ユーザの販売商品を追加します
 
-関係しているテーブル:
+関係しているテーブル: categories, products, product_categories
 
 ```sql
+   (0.1ms)  begin transaction
+  SQL (0.3ms)  INSERT INTO "products" ("cost", "created_at", "name", "seller_id", "updated_at") VALUES (?, ?, ?, ?, ?)  [["cost", 300], ["created_at", "2014-10-16 06:44:41.636677"], ["name", "キムワイプ"], ["seller_id", 1], ["updated_at", "2014-10-16 06:44:41.636677"]]
+  SQL (0.2ms)  INSERT INTO "product_categories" ("category_id", "created_at", "product_id", "updated_at") VALUES (?, ?, ?, ?)  [["category_id", 2], ["created_at", "2014-10-16 06:44:41.638155"], ["product_id", 4], ["updated_at", "2014-10-16 06:44:41.638155"]]
+   (9.0ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/product-new.png)
 
 #### 商品情報更新
 
 ユーザの販売している、指定した商品の情報を更新します
 
-関係しているテーブル:
+関係しているテーブル: categories, products, product_categories
 
 ```sql
+   (0.1ms)  begin transaction
+  Category Load (0.2ms)  SELECT "categories".* FROM "categories"  WHERE "categories"."id" IN (2, 3)
+  Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 4]]
+  SQL (0.2ms)  INSERT INTO "product_categories" ("category_id", "created_at", "product_id", "updated_at") VALUES (?, ?, ?, ?)  [["category_id", 3], ["created_at", "2014-10-16 06:47:47.802098"], ["product_id", 4], ["updated_at", "2014-10-16 06:47:47.802098"]]
+  SQL (0.1ms)  UPDATE "products" SET "cost" = ?, "updated_at" = ? WHERE "products"."id" = 4  [["cost", 308], ["updated_at", "2014-10-16 06:47:47.803274"]]
+   (8.9ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/product-edit.png)
 
 #### 販売履歴
 
