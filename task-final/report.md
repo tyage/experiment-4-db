@@ -323,34 +323,36 @@ id          name
 
 商品購入者情報を新規に登録します
 
-関係しているテーブル:
+関係しているテーブル: buyers
 
 ```sql
+   (0.1ms)  begin transaction
+  Buyer Exists (0.2ms)  SELECT  1 AS one FROM "buyers"  WHERE "buyers"."email" = 'buyer2@example.com' LIMIT 1
+  SQL (0.9ms)  INSERT INTO "buyers" ("created_at", "email", "encrypted_password", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", "2014-10-16 06:28:27.257608"], ["email", "buyer2@example.com"], ["encrypted_password", "$2a$10$qYvenv4s0KKjYdOMRAayHu5vxtTRyjn40zkodoQZbQRSHUlcd1fQ."], ["updated_at", "2014-10-16 06:28:27.257608"]]
+   (8.8ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-new.png)
 
 #### サインイン
 
 商品購入者idとpasswordを入力してサインインします
 
-関係しているテーブル:
+関係しているテーブル: buyers
 
 ```sql
+  Buyer Load (0.4ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."email" = 'buyer2@example.com'  ORDER BY "buyers"."id" ASC LIMIT 1
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-sign-in.png)
 
 #### サインアウト
 
 商品購入者セッションを削除しサインアウトします
 
-関係しているテーブル:
+関係しているテーブル: なし
 
-```sql
-```
-
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-sign-out.png)
 
 #### マイページ
 
