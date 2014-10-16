@@ -78,22 +78,49 @@
 
 購入者テーブル
 
+- id: id
+- email: メールアドレス
+- name: 購入者名
+- password: ログイン用パスワード
+
 ### seller
 
 販売者テーブル
+
+- id: id
+- email: メールアドレス
+- name: 販売者名
+- password: ログイン用パスワード
 
 ### order
 
 注文テーブル
 
+- id: id
+- buyer_id: 購入者id
+- product_id: 商品id
+- created_at: 注文日時
+
 ### product
 
 商品テーブル
+
+- id: id
+- seller_id: 販売者id
+- name: 商品名
+- cost: 商品価格
 
 ### product_category
 
 商品カテゴリテーブル
 
+- id: id
+- category_id: カテゴリid
+- product_id: 商品id
+
 ### category
 
 カテゴリテーブル
+
+- id: id
+- name: カテゴリ名
