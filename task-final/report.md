@@ -513,23 +513,27 @@ Binary data inserted for `string` type on column `encrypted_password`
 
 サインインしているユーザの情報を表示します
 
-関係しているテーブル:
+関係しているテーブル: sellers
 
 ```sql
+  Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 2]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-show.png)
 
 #### アカウント設定
 
 サインインしているユーザの情報を更新します
 
-関係しているテーブル:
+関係しているテーブル: sellers
 
 ```sql
+   (0.1ms)  begin transaction
+  SQL (0.3ms)  UPDATE "sellers" SET "name" = ?, "updated_at" = ? WHERE "sellers"."id" = 2  [["name", "餃子の歩"], ["updated_at", "2014-10-16 07:15:45.954334"]]
+   (8.9ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-edit.png)
 
 ## 工夫点
 
