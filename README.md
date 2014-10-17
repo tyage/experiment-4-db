@@ -19,8 +19,7 @@ $('body').empty()
 file.appendTo('body')
 $('.meta').remove()
 $('pre').css({ 'white-space': 'pre-wrap' })
-$('.task-list:first li').eq(1).text(prompt('input your name'))
-$('.task-list:first li').eq(2).text(prompt('input your student id'))
+$('.task-list:first li').eq(1).text(prompt('input your name')).next().text(prompt('input your student id'))
 print()
 ```
 
