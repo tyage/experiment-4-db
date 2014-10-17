@@ -38,6 +38,104 @@ EXPALIN ANALYZEを利用して，予測されるコストと実際の実行コ�
 
 ## 1. キャッシュ
 
+ダミーデータを作成するため、以下の様にテーブルを作成し、データを格納します
+
+```sql
+create table users as
+  select
+    id,
+    substring(md5(random()::text) from 1 for 6) as name,
+    (random() * 100)::int as age
+  from generate_series(1, 1000000) as id;
+```
+
+サイズは以下のようになりました
+
+```sql
+# select pg_relation_size('users');
+
+ pg_relation_size
+------------------
+         44285952
+```
+
+### キャッシュが有効になる質問
+
+83歳未満のユーザー一覧を考えます
+
+#### 1回目
+
+```sql
+# explain analyze select * from users where age < 83;
+                                                   QUERY PLAN
+----------------------------------------------------------------------------------------------------------------
+ Seq Scan on users  (cost=0.00..13244.70 rows=209032 width=40) (actual time=0.039..197.633 rows=824618 loops=1)
+   Filter: (age < 83)
+   Rows Removed by Filter: 175382
+ Total runtime: 242.532 ms
+(4 rows)
+```
+
+#### 2回目
+
+```sql
+# explain analyze select * from users where age < 83;
+                                                   QUERY PLAN
+----------------------------------------------------------------------------------------------------------------
+ Seq Scan on users  (cost=0.00..13244.70 rows=209032 width=40) (actual time=0.036..128.186 rows=824618 loops=1)
+   Filter: (age < 83)
+   Rows Removed by Filter: 175382
+ Total runtime: 166.395 ms
+(4 rows)
+```
+
+#### 3回目
+
+```sql
+# explain analyze select * from users where age < 83;
+                                                   QUERY PLAN
+----------------------------------------------------------------------------------------------------------------
+ Seq Scan on users  (cost=0.00..17906.00 rows=824248 width=15) (actual time=0.046..127.739 rows=824618 loops=1)
+   Filter: (age < 83)
+   Rows Removed by Filter: 175382
+ Total runtime: 166.821 ms
+(4 rows)
+```
+
+キャッシュが有効になったことで、actual time, total runtimeともに減少している。
+
+### キャッシュが効きにくい質問
+
+2000年1月1日以降に生まれたユーザー一覧
+
+#### 1回目
+
+```sql
+# explain analyze select * from users where now() > (age * interval '1' year) + DATE '2000-1-1';
+                                                   QUERY PLAN
+----------------------------------------------------------------------------------------------------------------
+ Seq Scan on users  (cost=0.00..27906.00 rows=333333 width=15) (actual time=0.051..329.909 rows=144746 loops=1)
+   Filter: (now() > ('2000-01-01'::date + ((age)::double precision * '1 year'::interval year)))
+   Rows Removed by Filter: 855254
+ Total runtime: 337.127 ms
+(4 rows)
+```
+
+#### 2回目
+
+```sql
+# explain analyze select * from users where now() > (age * interval '1' year) + DATE '2000-1-1';
+                                                   QUERY PLAN
+----------------------------------------------------------------------------------------------------------------
+ Seq Scan on users  (cost=0.00..27906.00 rows=333333 width=15) (actual time=0.056..341.885 rows=144746 loops=1)
+   Filter: (now() > ('2000-01-01'::date + ((age)::double precision * '1 year'::interval year)))
+   Rows Removed by Filter: 855254
+ Total runtime: 349.276 ms
+(4 rows)
+```
+
+関数now()を使用している影響で、キャッシュが適用されず実行時間は毎回異なる
+
 ## 2. 索引の有無
 
 ## 3. 選択率
