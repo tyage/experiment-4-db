@@ -537,4 +537,11 @@ Binary data inserted for `string` type on column `encrypted_password`
 
 ## 工夫点
 
+- Ruby on Railsベースで開発しました
+- パスワードは暗号化されて保存されています
+- データの追加や更新時にはtransactionされています
+    - 例えば販売者の新規登録時にはメールアドレスが存在するかをselect文でチェックし、存在しなければ行を追加するまでの処理がtransaction処理されます
+- また、権限管理なども行っており、注文は購入者しか、商品の追加・編集処理は販売者しか行えないようになっています
+- 各テーブルのidカラムはprimary keyであるため、高速に索引できるようになっています
+
 ## 感想
