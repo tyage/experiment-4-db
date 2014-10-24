@@ -499,3 +499,73 @@ create index age_index_3_2 on users3_2 (age);
 また、選択率が低い場合はIndex Scanが使用されたが、選択率が高い場合はBitmap Heap Scanが使用された。
 
 ## 4. 主索引と二次索引
+
+ダミーデータを作成するため、以下の様にテーブルを作成し、データを格納します
+
+```sql
+create table users4_1 as
+  select
+    id,
+    substring(md5(random()::text) from 1 for 6) as name,
+    (random() * 2)::int as age
+  from generate_series(1, 10000000) as id;
+```
+
+サイズは以下のようになりました
+
+```sql
+# select pg_relation_size('users4_1');
+
+ pg_relation_size
+------------------
+        442818560
+```
+
+### 索引をつけない場合
+
+```sql
+# explain analyze select * from users4_1 where id = 500000;
+                                                   QUERY PLAN
+----------------------------------------------------------------------------------------------------------------
+ Seq Scan on users4_1  (cost=0.00..132434.75 rows=31352 width=40) (actual time=78.663..1693.222 rows=1 loops=1)
+   Filter: (id = 500000)
+   Rows Removed by Filter: 9999999
+ Total runtime: 1693.243 ms
+(4 rows)
+```
+
+### 主索引をつけた場合
+
+```sql
+alter table users4_1 add primary key(id);
+```
+
+```sql
+# explain analyze select * from users4_1 where id = 500001;
+                                                       QUERY PLAN
+-------------------------------------------------------------------------------------------------------------------------
+ Index Scan using users4_1_pkey on users4_1  (cost=0.43..8.45 rows=1 width=40) (actual time=0.021..0.022 rows=1 loops=1)
+   Index Cond: (id = 500001)
+ Total runtime: 0.033 ms
+(3 rows)
+```
+
+### 二次索引をつけた場合
+
+```sql
+create index id_index_4_1 on users4_1 (id);
+```
+
+```sql
+# explain analyze select * from users4_1 where id = 500001;
+                                                       QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------
+ Index Scan using id_index_4_1 on users4_1  (cost=0.43..8.45 rows=1 width=15) (actual time=0.044..0.045 rows=1 loops=1)
+   Index Cond: (id = 500000)
+ Total runtime: 0.071 ms
+(3 rows)
+```
+
+### 考察
+
+二次索引と主索引で索引が同様に働いている場合では、主索引のほうが早い結果となった。
