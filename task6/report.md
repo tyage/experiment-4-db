@@ -141,6 +141,111 @@ create table users as
 
 ## 2. 索引の有無
 
+### パターン1 (組数: 10, 属性数: 3, 索引をつける属性: id(int))
+
+ダミーデータを作成するため、以下の様にテーブルを作成し、データを格納します
+
+```sql
+create table users2_1 as
+  select
+    id,
+    substring(md5(random()::text) from 1 for 6) as name,
+    (random() * 100)::int as age
+  from generate_series(1, 10) as id;
+```
+
+サイズは以下のようになりました
+
+```sql
+# select pg_relation_size('users2_1');
+
+ pg_relation_size
+------------------
+             8192
+```
+
+#### 索引がついていない場合
+
+```sql
+# explain analyze select * from users2_1 where id = 10;
+                                             QUERY PLAN
+----------------------------------------------------------------------------------------------------
+ Seq Scan on users2_1  (cost=0.00..24.50 rows=6 width=40) (actual time=0.007..0.007 rows=1 loops=1)
+   Filter: (id = 10)
+   Rows Removed by Filter: 9
+ Total runtime: 0.018 ms
+(4 rows)
+```
+
+#### 索引がついている場合
+
+```sql
+create index id_index on users2_1 (id);
+```
+
+```sql
+# explain analyze select * from users2_1 where id = 10;
+                                            QUERY PLAN
+---------------------------------------------------------------------------------------------------
+ Seq Scan on users2_1  (cost=0.00..1.12 rows=1 width=40) (actual time=0.006..0.006 rows=1 loops=1)
+   Filter: (id = 10)
+   Rows Removed by Filter: 9
+ Total runtime: 0.018 ms
+(4 rows)
+```
+
+### パターン2 (組数: 1000000, 属性数: 3, 索引をつける属性: id(int))
+
+ダミーデータを作成するため、以下の様にテーブルを作成し、データを格納します
+
+```sql
+create table users2_2 as
+  select
+    id,
+    substring(md5(random()::text) from 1 for 6) as name,
+    (random() * 100)::int as age
+  from generate_series(1, 1000000) as id;
+```
+
+サイズは以下のようになりました
+
+```sql
+# select pg_relation_size('users2_2');
+
+ pg_relation_size
+------------------
+         44285952
+```
+
+#### 索引がついていない場合
+
+```sql
+# explain analyze select * from users2_2 where id = 10;
+                                               QUERY PLAN
+--------------------------------------------------------------------------------------------------------
+ Seq Scan on users2_2  (cost=0.00..17906.00 rows=1 width=15) (actual time=0.042..84.202 rows=1 loops=1)
+   Filter: (id = 10)
+   Rows Removed by Filter: 999999
+ Total runtime: 84.221 ms
+(4 rows)
+```
+
+#### 索引がついている場合
+
+```sql
+create index id_index_2_2 on users2_2 (id);
+```
+
+```sql
+# explain analyze select * from users2_2 where id = 10;
+                                                       QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------
+ Index Scan using id_index_2_2 on users2_2  (cost=0.42..8.44 rows=1 width=15) (actual time=0.037..0.037 rows=1 loops=1)
+   Index Cond: (id = 10)
+ Total runtime: 0.048 ms
+(3 rows)
+```
+
 ## 3. 選択率
 
 ## 4. 主索引と二次索引
