@@ -66,40 +66,43 @@ create table users as
 #### 1回目
 
 ```sql
-# explain analyze select * from users where age < 83;
+# explain analyze select * from users where age < 83 limit 10;
                                                    QUERY PLAN
 ----------------------------------------------------------------------------------------------------------------
- Seq Scan on users  (cost=0.00..13244.70 rows=209032 width=40) (actual time=0.039..197.633 rows=824618 loops=1)
-   Filter: (age < 83)
-   Rows Removed by Filter: 175382
- Total runtime: 242.532 ms
-(4 rows)
+ Limit  (cost=0.00..0.22 rows=10 width=15) (actual time=0.271..0.275 rows=10 loops=1)
+   ->  Seq Scan on users  (cost=0.00..17906.00 rows=824248 width=15) (actual time=0.270..0.271 rows=10 loops=1)
+         Filter: (age < 83)
+         Rows Removed by Filter: 1
+ Total runtime: 0.667 ms
+(5 rows)
 ```
 
 #### 2回目
 
 ```sql
-# explain analyze select * from users where age < 83;
+# explain analyze select * from users where age < 83 limit 10;
                                                    QUERY PLAN
 ----------------------------------------------------------------------------------------------------------------
- Seq Scan on users  (cost=0.00..13244.70 rows=209032 width=40) (actual time=0.036..128.186 rows=824618 loops=1)
-   Filter: (age < 83)
-   Rows Removed by Filter: 175382
- Total runtime: 166.395 ms
-(4 rows)
+ Limit  (cost=0.00..0.22 rows=10 width=15) (actual time=0.013..0.017 rows=10 loops=1)
+   ->  Seq Scan on users  (cost=0.00..17906.00 rows=824248 width=15) (actual time=0.012..0.015 rows=10 loops=1)
+         Filter: (age < 83)
+         Rows Removed by Filter: 1
+ Total runtime: 0.044 ms
+(5 rows)
 ```
 
 #### 3回目
 
 ```sql
-# explain analyze select * from users where age < 83;
+# explain analyze select * from users where age < 83 limit 10;
                                                    QUERY PLAN
 ----------------------------------------------------------------------------------------------------------------
- Seq Scan on users  (cost=0.00..17906.00 rows=824248 width=15) (actual time=0.046..127.739 rows=824618 loops=1)
-   Filter: (age < 83)
-   Rows Removed by Filter: 175382
- Total runtime: 166.821 ms
-(4 rows)
+ Limit  (cost=0.00..0.22 rows=10 width=15) (actual time=0.013..0.017 rows=10 loops=1)
+   ->  Seq Scan on users  (cost=0.00..17906.00 rows=824248 width=15) (actual time=0.011..0.013 rows=10 loops=1)
+         Filter: (age < 83)
+         Rows Removed by Filter: 1
+ Total runtime: 0.047 ms
+(5 rows)
 ```
 
 キャッシュが有効になったことで、actual time, total runtimeともに減少している。
