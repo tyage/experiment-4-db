@@ -386,4 +386,116 @@ create index name_index_2_4 on users2_4 (name);
 
 ## 3. 選択率
 
+### 選択率が小さい場合 (選択率: 1/1000000)
+
+ダミーデータを作成するため、以下の様にテーブルを作成し、データを格納します
+
+```sql
+create table users3_1 as
+  select
+    id,
+    substring(md5(random()::text) from 1 for 6) as name,
+    (random() * 100)::int as age
+  from generate_series(1, 1000000) as id;
+```
+
+サイズは以下のようになりました
+
+```sql
+# select pg_relation_size('users3_1');
+
+ pg_relation_size
+------------------
+         44285952
+```
+
+#### 索引がついていない場合
+
+```sql
+# explain analyze select * from users3_1 where id = 500000;
+                                                 QUERY PLAN
+-------------------------------------------------------------------------------------------------------------
+ Seq Scan on users3_1  (cost=0.00..13244.70 rows=3135 width=40) (actual time=88.545..149.349 rows=1 loops=1)
+   Filter: (id = 500000)
+   Rows Removed by Filter: 999999
+ Total runtime: 149.367 ms
+(4 rows)
+```
+
+#### 索引がついている場合
+
+```sql
+create index id_index_3_1 on users3_1 (id);
+```
+
+```sql
+# explain analyze select * from users3_1 where id = 500000;
+                                                       QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------
+ Index Scan using id_index_3_1 on users3_1  (cost=0.42..8.44 rows=1 width=15) (actual time=0.053..0.054 rows=1 loops=1)
+   Index Cond: (id = 500000)
+ Total runtime: 0.072 ms
+(3 rows)
+```
+
+### 選択率が大きい場合 (選択率: 1/2)
+
+ダミーデータを作成するため、以下の様にテーブルを作成し、データを格納します
+
+```sql
+create table users3_2 as
+  select
+    id,
+    substring(md5(random()::text) from 1 for 6) as name,
+    (random() * 2)::int as age
+  from generate_series(1, 1000000) as id;
+```
+
+サイズは以下のようになりました
+
+```sql
+# select pg_relation_size('users3_2');
+
+ pg_relation_size
+------------------
+         44285952
+```
+
+#### 索引がついていない場合
+
+```sql
+# explain analyze select * from users3_2 where age = 0;
+                                                   QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------
+ Seq Scan on users3_2  (cost=0.00..13244.70 rows=3135 width=40) (actual time=0.009..163.648 rows=249689 loops=1)
+   Filter: (age = 0)
+   Rows Removed by Filter: 750311
+ Total runtime: 177.433 ms
+(4 rows)
+```
+
+#### 索引がついている場合
+
+```sql
+create index age_index_3_2 on users3_2 (age);
+```
+
+```sql
+# explain analyze select * from users3_2 where age = 0;
+                                                             QUERY PLAN
+-------------------------------------------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on users3_2  (cost=4610.41..13090.57 rows=245933 width=15) (actual time=26.184..80.495 rows=249689 loops=1)
+   Recheck Cond: (age = 0)
+   ->  Bitmap Index Scan on age_index_3_2  (cost=0.00..4548.92 rows=245933 width=0) (actual time=24.458..24.458 rows=249689 loops=1)
+         Index Cond: (age = 0)
+ Total runtime: 93.440 ms
+(5 rows)
+```
+
+### 考察
+
+選択率が高い場合、選択率が低い場合と比べて実行時間が長くなった。
+
+また、選択率が低い場合はIndex Scanが使用されたが、選択率が高い場合はBitmap Heap Scanが使用された。
+
 ## 4. 主索引と二次索引
