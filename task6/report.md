@@ -315,6 +315,61 @@ create index id_index_2_3 on users2_3 (id);
 (3 rows)
 ```
 
+### パターン4 (組数: 1000000, 属性数: 3, 索引をつける属性: name(text))
+
+ダミーデータを作成するため、以下の様にテーブルを作成し、データを格納します
+
+```sql
+create extension pgcrypto;
+create table users2_4 as
+  select
+    id,
+    encode(digest(random()::text, 'sha512'), 'hex')::text as name,
+    (random() * 100)::int as age
+  from generate_series(1, 1000000) as id;
+```
+
+サイズは以下のようになりました
+
+```sql
+# select pg_relation_size('users2_4');
+
+ pg_relation_size
+------------------
+        174301184
+```
+
+#### 索引がついていない場合
+
+```sql
+# explain analyze select * from users2_4 where name = '0bc403ae600b5ac01ed5301527a71b53e98063efb24781eaf0b29c7ebdc43a2fe2f798e2db3f4038998697fc8fc0db310127f7ddcf5a3331e7f1ea8a2487e4bd';
+                                                                         QUERY PLAN
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Seq Scan on users2_4  (cost=0.00..52128.65 rows=12341 width=40) (actual time=80.608..152.726 rows=1 loops=1)
+   Filter: (name = '0bc403ae600b5ac01ed5301527a71b53e98063efb24781eaf0b29c7ebdc43a2fe2f798e2db3f4038998697fc8fc0db310127f7ddcf5a3331e7f1ea8a2487e4bd'::text)
+   Rows Removed by Filter: 999999
+ Total runtime: 152.741 ms
+(4 rows)
+```
+
+#### 索引がついている場合
+
+```sql
+create index name_index_2_4 on users2_4 (name);
+```
+
+```sql
+# explain analyze select * from users2_4 where name = '0bc403ae600b5ac01ed5301527a71b53e98063efb24781eaf0b29c7ebdc43a2fe2f798e2db3f4038998697fc8fc0db310127f7ddcf5a3331e7f1ea8a2487e4bd';
+                                                                              QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on users2_4  (cost=459.30..12264.99 rows=5000 width=40) (actual time=0.085..0.086 rows=1 loops=1)
+   Recheck Cond: (name = '0bc403ae600b5ac01ed5301527a71b53e98063efb24781eaf0b29c7ebdc43a2fe2f798e2db3f4038998697fc8fc0db310127f7ddcf5a3331e7f1ea8a2487e4bd'::text)
+   ->  Bitmap Index Scan on name_index_2_4  (cost=0.00..458.05 rows=5000 width=0) (actual time=0.078..0.078 rows=1 loops=1)
+         Index Cond: (name = '0bc403ae600b5ac01ed5301527a71b53e98063efb24781eaf0b29c7ebdc43a2fe2f798e2db3f4038998697fc8fc0db310127f7ddcf5a3331e7f1ea8a2487e4bd'::text)
+ Total runtime: 0.101 ms
+(5 rows)
+```
+
 ## 3. 選択率
 
 ## 4. 主索引と二次索引
