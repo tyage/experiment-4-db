@@ -246,6 +246,75 @@ create index id_index_2_2 on users2_2 (id);
 (3 rows)
 ```
 
+### パターン3 (組数: 1000000, 属性数: 20, 索引をつける属性: id(int))
+
+ダミーデータを作成するため、以下の様にテーブルを作成し、データを格納します
+
+```sql
+create table users2_3 as
+  select
+    id,
+    substring(md5(random()::text) from 1 for 6) as name,
+    (random() * 100)::int as age1,
+    (random() * 100)::int as age2,
+    (random() * 100)::int as age3,
+    (random() * 100)::int as age4,
+    (random() * 100)::int as age5,
+    (random() * 100)::int as age6,
+    (random() * 100)::int as age7,
+    (random() * 100)::int as age8,
+    (random() * 100)::int as age9,
+    (random() * 100)::int as age10,
+    (random() * 100)::int as age11,
+    (random() * 100)::int as age12,
+    (random() * 100)::int as age13,
+    (random() * 100)::int as age14,
+    (random() * 100)::int as age15,
+    (random() * 100)::int as age16,
+    (random() * 100)::int as age17,
+    (random() * 100)::int as age18
+  from generate_series(1, 1000000) as id;
+```
+
+サイズは以下のようになりました
+
+```sql
+# select pg_relation_size('users2_3');
+
+ pg_relation_size
+------------------
+        117030912
+```
+
+#### 索引がついていない場合
+
+```sql
+# explain analyze select * from users2_3 where id = 10;
+                                                 QUERY PLAN
+-------------------------------------------------------------------------------------------------------------
+ Seq Scan on users2_3  (cost=0.00..24821.93 rows=4214 width=108) (actual time=0.041..152.508 rows=1 loops=1)
+   Filter: (id = 10)
+   Rows Removed by Filter: 999999
+ Total runtime: 152.529 ms
+(4 rows)
+```
+
+#### 索引がついている場合
+
+```sql
+create index id_index_2_3 on users2_3 (id);
+```
+
+```sql
+# explain analyze select * from users2_3 where id = 10;
+                                                       QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------
+ Index Scan using id_index_2_3 on users2_3  (cost=0.42..8.44 rows=1 width=83) (actual time=0.058..0.059 rows=1 loops=1)
+   Index Cond: (id = 10)
+ Total runtime: 0.081 ms
+(3 rows)
+```
+
 ## 3. 選択率
 
 ## 4. 主索引と二次索引
