@@ -1,30 +1,16 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>商品名</th>
-      <th>価格</th>
-      <th>販売者</th>
-      <th>カテゴリ</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= link_to product.name, product_path(product) %></td>
-        <td><%= product.cost %></td>
-        <td><%= link_to product.seller.name, seller_path(product.seller) %></td>
-        <td>
-          <% product.categories.each do |category| %>
-            <%= link_to category.name, category %>
-          <% end %>
-        </td>
-        <td>
-          <% if product.seller == current_seller %>
-            <%= link_to '編集', edit_product_path(product) %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul class="product-list">
+  <% @products.each do |product| %>
+    <li class="product">
+      <p class="product-image">
+        <%= link_to(product) do %>
+          <img src="/assets/product-default.jpg" alt="">
+        <% end %>
+      </p>
+      <p><%= link_to product.name, product %></p>
+      <p>¥<%= product.cost %></p>
+      <% if product.seller == current_seller %>
+        <p><%= link_to '編集', edit_product_path(product) %></p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
