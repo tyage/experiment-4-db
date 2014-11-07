@@ -1,3 +1,5 @@
+<h1><%= @seller.name %>の商品一覧</h1>
+
 <% if @seller == current_seller %>
   <%= link_to '商品追加', new_product_path %>
   <%= link_to '販売履歴', seller_sold_path %>
