@@ -3,4 +3,4 @@
   <%= link_to '販売履歴', seller_sold_path %>
 <% end %>
 
-<%= render 'products/list' %>
+<%= render 'products/list', locals: { products: @products } %>
