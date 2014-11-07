@@ -1,7 +1,9 @@
 <h1>カテゴリ一覧</h1>
 
-<ul id="category-list">
+<ul id="category-list" class="animated-list">
   <% @categories.each do |category| %>
-    <li><%= link_to content_tag(:span, category.name), category %></li>
+    <li class="animated-list-content">
+      <%= link_to content_tag(:span, category.name), category %>
+    </li>
   <% end %>
 </ul>
