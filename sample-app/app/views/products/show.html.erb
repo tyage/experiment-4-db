@@ -1,23 +1,29 @@
-<dl class="dl-horizontal">
-  <dt>販売者</dt>
-  <dd><%= link_to @product.seller.name, seller_path(@product.seller) %></dd>
-  <dt>商品名</dt>
-  <dd><%= @product.name %></dd>
-  <dt>価格</dt>
-  <dd><%= @product.cost %></dd>
-  <dt>カテゴリ</dt>
-  <dd>
-    <% @product.categories.each do |category| %>
-      <%= link_to category.name, category %>
-    <% end %>
-  </dd>
-</dl>
+<div id="product-detail">
+  <div id="product-image">
+    <img src="/assets/product-default.jpg" alt="">
+  </div>
 
-<% if current_buyer %>
-  <%= render 'orders/form' %>
-<% end %>
+  <dl class="dl-horizontal">
+    <dt>商品名</dt>
+    <dd><%= @product.name %></dd>
+    <dt>価格</dt>
+    <dd>¥<%= @product.cost %></dd>
+    <dt>カテゴリ</dt>
+    <dd>
+      <% @product.categories.each do |category| %>
+        <%= link_to category.name, category %>
+      <% end %>
+    </dd>
+    <dt>販売者</dt>
+    <dd><%= link_to @product.seller.name, seller_path(@product.seller) %></dd>
+  </dl>
 
-<% if @product.seller == current_seller %>
-  <%= link_to '編集', edit_product_path(@product) %>
-  <%= link_to '販売履歴', product_sold_path(@product) %>
-<% end %>
+  <% if current_buyer %>
+    <%= render 'orders/form' %>
+  <% end %>
+
+  <% if @product.seller == current_seller %>
+    <%= link_to '編集', edit_product_path(@product) %>
+    <%= link_to '販売履歴', product_sold_path(@product) %>
+  <% end %>
+</div>
