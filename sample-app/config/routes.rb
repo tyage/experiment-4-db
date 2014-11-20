@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :categories, :only => [:show, :index]
 
   get 'products/:id/sold' => 'products#sold', as: :product_sold
+  post 'products/search' => 'products#search'
   resources :products, :only => [:show, :edit, :update, :new, :create, :index]
 
   get 'sellers/sold' => 'sellers#sold', as: :seller_sold

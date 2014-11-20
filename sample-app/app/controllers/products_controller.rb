@@ -9,6 +9,11 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
+  def search
+    @products = Product.all.where('name like ?', "%#{params['product']['search']}%")
+    render :index
+  end
+
   # GET /products/1
   # GET /products/1.json
   def show
