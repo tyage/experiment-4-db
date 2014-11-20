@@ -10,7 +10,8 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = Product.all.where('name like ?', "%#{params['product']['search']}%")
+    @search = params['product']['search']
+    @products = Product.all.where('name like ?', "%#{@search}%")
     render :index
   end
 
