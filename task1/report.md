@@ -84,7 +84,7 @@
 
 ## 実体関連図とその説明（各実体集合および関連集合の説明）
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task1/er.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task1/er.png)
 
 ### 実体集合
 - buyer (商品購入者)

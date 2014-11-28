@@ -72,7 +72,7 @@
 
 ## 実体関連図
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task2/er.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task2/er.png)
 
 - buyer: 購入者
 - seller: 販売者
@@ -202,7 +202,7 @@ id          name
   Seller Load (0.2ms)  SELECT "sellers".* FROM "sellers"
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/sellers.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/sellers.png)
 
 #### 商品販売者詳細表示
 
@@ -214,7 +214,7 @@ id          name
   Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 1]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-show.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-show.png)
 
 #### 販売商品一覧表示
 
@@ -230,7 +230,7 @@ id          name
   Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-product.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-product.png)
 
 #### 商品一覧表示
 
@@ -246,7 +246,7 @@ id          name
   Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/products.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/products.png)
 
 #### 商品詳細表示
 
@@ -260,7 +260,7 @@ id          name
   Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/product-show.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/product-show.png)
 
 #### カテゴリ一覧表示
 
@@ -272,7 +272,7 @@ id          name
   Category Load (0.2ms)  SELECT "categories".* FROM "categories"
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/categories.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/categories.png)
 
 #### カテゴリ別商品一覧表示
 
@@ -288,7 +288,7 @@ id          name
   Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/category-show.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/category-show.png)
 
 ### 商品購入者用
 
@@ -302,7 +302,7 @@ id          name
   SQL (0.4ms)  INSERT INTO "orders" ("buyer_id", "created_at", "product_id", "updated_at") VALUES (?, ?, ?, ?)  [["buyer_id", 1], ["created_at", "2014-10-16 06:21:50.473507"], ["product_id", 2], ["updated_at", "2014-10-16 06:21:50.473507"]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/order-new.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/order-new.png)
 
 #### 購入履歴一覧表示
 
@@ -317,7 +317,7 @@ id          name
   Product Load (0.1ms)  SELECT  "products".* FROM "products"  WHERE "products"."id" = ? LIMIT 1  [["id", 3]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/orders.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/orders.png)
 
 #### 新規登録
 
@@ -332,7 +332,7 @@ id          name
    (8.8ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-new.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/buyer-new.png)
 
 #### サインイン
 
@@ -344,7 +344,7 @@ id          name
   Buyer Load (0.4ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."email" = 'buyer2@example.com'  ORDER BY "buyers"."id" ASC LIMIT 1
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-sign-in.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/buyer-sign-in.png)
 
 #### サインアウト
 
@@ -352,7 +352,7 @@ id          name
 
 関係しているテーブル: なし
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-sign-out.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/buyer-sign-out.png)
 
 #### マイページ
 
@@ -364,7 +364,7 @@ id          name
   Buyer Load (0.1ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."id" = ? LIMIT 1  [["id", 2]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-show.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/buyer-show.png)
 
 #### アカウント設定
 
@@ -378,7 +378,7 @@ id          name
    (8.9ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-edit.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/buyer-edit.png)
 
 ### 商品販売者用
 
@@ -396,7 +396,7 @@ id          name
   Category Load (0.1ms)  SELECT "categories".* FROM "categories" INNER JOIN "product_categories" ON "categories"."id" = "product_categories"."category_id" WHERE "product_categories"."product_id" = ?  [["product_id", 3]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-product.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-product.png)
 
 #### 商品追加
 
@@ -411,7 +411,7 @@ id          name
    (9.0ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/product-new.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/product-new.png)
 
 #### 商品情報更新
 
@@ -428,7 +428,7 @@ id          name
    (8.9ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/product-edit.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/product-edit.png)
 
 #### 販売履歴
 
@@ -445,7 +445,7 @@ id          name
   Buyer Load (0.1ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."id" = ? LIMIT 1  [["id", 1]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-sold.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-sold.png)
 
 #### 商品別販売履歴
 
@@ -459,7 +459,7 @@ id          name
   Buyer Load (0.0ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."id" = ? LIMIT 1  [["id", 1]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/product-sold.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/product-sold.png)
 
 #### 購入者詳細表示
 
@@ -471,7 +471,7 @@ id          name
   Buyer Load (0.1ms)  SELECT  "buyers".* FROM "buyers"  WHERE "buyers"."id" = ? LIMIT 1  [["id", 1]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/buyer-show.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/buyer-show.png)
 
 #### 新規登録
 
@@ -487,7 +487,7 @@ Binary data inserted for `string` type on column `encrypted_password`
    (0.8ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-new.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-new.png)
 
 #### サインイン
 
@@ -499,7 +499,7 @@ Binary data inserted for `string` type on column `encrypted_password`
   Seller Load (0.5ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."email" = 'seller2@example.com'  ORDER BY "sellers"."id" ASC LIMIT 1
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-sign-in.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-sign-in.png)
 
 #### サインアウト
 
@@ -507,7 +507,7 @@ Binary data inserted for `string` type on column `encrypted_password`
 
 関係しているテーブル: なし
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-sign-out.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-sign-out.png)
 
 #### マイページ
 
@@ -519,7 +519,7 @@ Binary data inserted for `string` type on column `encrypted_password`
   Seller Load (0.1ms)  SELECT  "sellers".* FROM "sellers"  WHERE "sellers"."id" = ? LIMIT 1  [["id", 2]]
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-show.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-show.png)
 
 #### アカウント設定
 
@@ -533,7 +533,7 @@ Binary data inserted for `string` type on column `encrypted_password`
    (8.9ms)  commit transaction
 ```
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task-final/screenshots/seller-edit.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task-final/screenshots/seller-edit.png)
 
 ## 工夫点
 

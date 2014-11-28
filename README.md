@@ -25,4 +25,4 @@ print()
 
 ## demo application
 
-see [README](https://github.com/tyage/experiment-4/tree/master/sample-app/README.md)
+see [README](https://github.com/tyage/experiment-4-db/tree/master/sample-app/README.md)

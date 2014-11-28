@@ -14,7 +14,7 @@
 
 ER図を以下のように変更する
 
-![](https://raw.githubusercontent.com/tyage/experiment-4/master/task2/er.png)
+![](https://raw.githubusercontent.com/tyage/experiment-4-db/master/task2/er.png)
 
 - 関数従属性の集合
     - buyer

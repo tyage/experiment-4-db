@@ -21,7 +21,7 @@ $ bundle -v # Bundler version 1.7.2
 
 ```bash
 $ git clone ${REPOSITORY_PATH}
-$ cd experiment-4/sample-app
+$ cd experiment-4-db/sample-app
 $ bundle install --path vendor/bundle
 ```
 
